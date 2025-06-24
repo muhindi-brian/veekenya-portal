@@ -1,0 +1,92 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add Donation - VeeKenya{% endblock %}
+
+{% block header %}Add New Donation{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Sponsor Selection -->
+            <div>
+                <label for="sponsor" class="block text-sm font-medium text-gray-700">Select Sponsor</label>
+                <select id="sponsor" name="sponsor" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+                    <option value="">Select a sponsor...</option>
+                    {% for sponsor in sponsors %}
+                    <option value="{{ sponsor.id }}" {% if form_data.sponsor == sponsor.id|stringformat:"i" %}selected{% endif %}>
+                        {{ sponsor.full_name }} - {{ sponsor.email }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Amount -->
+            <div>
+                <label for="amount" class="block text-sm font-medium text-gray-700">Amount ($)</label>
+                <div class="mt-1 relative rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input type="number" step="0.01" min="0" id="amount" name="amount" required
+                           class="pl-7 block w-full pr-12 sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
+                           placeholder="0.00"
+                           value="{{ form_data.amount|default:'' }}">
+                </div>
+            </div>
+
+            <!-- Date Received -->
+            <div>
+                <label for="date_received" class="block text-sm font-medium text-gray-700">Date Received</label>
+                <input type="date" id="date_received" name="date_received" required
+                       class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                       value="{{ form_data.date_received|default:'' }}">
+            </div>
+
+            <!-- Purpose -->
+            <div>
+                <label for="purpose" class="block text-sm font-medium text-gray-700">Purpose</label>
+                <textarea id="purpose" name="purpose" rows="3" required
+                          class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                          placeholder="What is this donation for?">{{ form_data.purpose|default:'' }}</textarea>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex justify-end space-x-3">
+                <a href="{% url 'donations' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Record Donation
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Set today as the default date if no date is set
+    window.addEventListener('load', function() {
+        const dateInput = document.getElementById('date_received');
+        if (!dateInput.value) {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            dateInput.value = `${year}-${month}-${day}`;
+        }
+    });
+
+    // Format amount input to always show 2 decimal places
+    const amountInput = document.getElementById('amount');
+    amountInput.addEventListener('change', function(e) {
+        if (e.target.value) {
+            e.target.value = parseFloat(e.target.value).toFixed(2);
+        }
+    });
+</script>
+{% endblock %} 

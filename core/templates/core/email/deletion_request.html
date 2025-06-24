@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Account Deletion Request</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px;">
+        <h2 style="color: #dc3545; margin-top: 0;">Account Deletion Request</h2>
+        
+        <p>A user has requested to delete their account from the VeeKenya Management System.</p>
+        
+        <div style="background-color: white; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <h3 style="margin-top: 0;">User Details:</h3>
+            <p><strong>Name:</strong> {{ user.get_full_name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Role:</strong> {{ user.profile.get_role_display }}</p>
+            <p><strong>Requested at:</strong> {{ requested_at|date:"F j, Y, g:i a" }}</p>
+            
+            {% if reason %}
+            <h3>Reason for Deletion:</h3>
+            <p style="background-color: #f8f9fa; padding: 10px; border-radius: 4px;">{{ reason }}</p>
+            {% endif %}
+        </div>
+        
+        <p>Please review this request and take appropriate action. You can manage this request from the user management section.</p>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #dee2e6;">
+            <p style="color: #6c757d; font-size: 0.9em;">
+                This is an automated message from the VeeKenya Management System. Please do not reply to this email.
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

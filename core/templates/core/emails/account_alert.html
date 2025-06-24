@@ -1,0 +1,51 @@
+{% extends 'core/emails/base_email.html' %}
+
+{% block title %}Account Alert{% endblock %}
+
+{% block header %}Account Security Alert{% endblock %}
+
+{% block content %}
+<p>Dear {{ user.first_name }},</p>
+
+<p>We noticed some activity on your VeeKenya account that we'd like to bring to your attention.</p>
+
+<div style="background-color: #f8f8f8; padding: 20px; margin: 20px 0; border-radius: 5px;">
+    <h3 style="margin-top: 0;">Alert Details:</h3>
+    <p><strong>Time:</strong> {{ alert.timestamp|date:"F j, Y, g:i a" }}</p>
+    <p><strong>Activity:</strong> {{ alert.activity_type }}</p>
+    <p><strong>Location:</strong> {{ alert.location }}</p>
+    <p><strong>Device:</strong> {{ alert.device_info }}</p>
+</div>
+
+{% if alert.requires_action %}
+<p style="color: #d32f2f; font-weight: bold;">This activity requires your attention. Please review your account security settings.</p>
+{% endif %}
+
+<p>If this was you, you can ignore this email. If you didn't perform this action, please take the following steps:</p>
+
+<ol>
+    <li>Change your password immediately</li>
+    <li>Enable two-factor authentication if not already enabled</li>
+    <li>Review your recent account activity</li>
+    <li>Contact our support team if you need assistance</li>
+</ol>
+
+<a href="{{ security_settings_url }}" class="button">Review Security Settings</a>
+
+<p>For your security, we recommend:</p>
+<ul>
+    <li>Using a strong, unique password</li>
+    <li>Enabling two-factor authentication</li>
+    <li>Regularly reviewing your account activity</li>
+    <li>Keeping your contact information up to date</li>
+</ul>
+
+<p>If you have any questions or concerns, please don't hesitate to contact our support team.</p>
+
+<p>Best regards,<br>The VeeKenya Security Team</p>
+
+<p style="font-size: 12px; color: #666;">
+    Note: This is an automated security alert. Please do not reply to this email. 
+    If you need assistance, please contact our support team through the website.
+</p>
+{% endblock %} 

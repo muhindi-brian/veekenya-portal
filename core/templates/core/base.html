@@ -1,0 +1,271 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VeeKenya Dashboard{% endblock %}</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#EEF2FF',
+                            100: '#E0E7FF',
+                            200: '#C7D2FE',
+                            300: '#A5B4FC',
+                            400: '#818CF8',
+                            500: '#6366F1',
+                            600: '#4F46E5',
+                            700: '#4338CA',
+                            800: '#3730A3',
+                            900: '#312E81',
+                        },
+                        secondary: {
+                            50: '#F9FAFB',
+                            100: '#F3F4F6',
+                            200: '#E5E7EB',
+                            300: '#D1D5DB',
+                            400: '#9CA3AF',
+                            500: '#6B7280',
+                            600: '#4B5563',
+                            700: '#374151',
+                            800: '#1F2937',
+                            900: '#111827',
+                        },
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B',
+                        info: '#3B82F6',
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'hover': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-in': 'slideIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: url('https://veekenya.org/wp-content/uploads/2025/04/education-2-.jpg') center center/cover no-repeat fixed;
+            position: relative;
+        }
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(126,166,199,0.7) 0%, rgba(224,231,255,0.7) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+        }
+        .hover-scale {
+            transition: transform 0.2s ease-in-out;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen">
+    <div class="bg-overlay"></div>
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white text-gray-800 shadow-soft transform transition-transform duration-300 ease-in-out lg:translate-x-0 -translate-x-full" id="sidebar">
+            <div class="p-6 border-b border-gray-100">
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">VeeKenya</h2>
+            </div>
+            
+            <nav class="mt-6 px-3">
+                <a href="{% url 'dashboard' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-home w-6"></i>
+                    <span class="mx-2">Dashboard</span>
+                </a>
+                
+                <a href="{% url 'children' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-child w-6"></i>
+                    <span class="mx-2">Children Records</span>
+                </a>
+                
+                <a href="{% url 'sponsors' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-users w-6"></i>
+                    <span class="mx-2">Sponsors</span>
+                </a>
+                
+                <a href="{% url 'sponsorships' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-link w-6"></i>
+                    <span class="mx-2">Sponsorships</span>
+                </a>
+                
+                <a href="{% url 'donations' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-dollar-sign w-6"></i>
+                    <span class="mx-2">Donations</span>
+                </a>
+                
+                <a href="{% url 'reports' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-chart-bar w-6"></i>
+                    <span class="mx-2">Reports</span>
+                </a>
+                
+                <a href="{% url 'messages' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-envelope w-6"></i>
+                    <span class="mx-2">Messages</span>
+                </a>
+                
+                <a href="{% url 'settings' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-cog w-6"></i>
+                    <span class="mx-2">Settings</span>
+                </a>
+                
+                {% if request.user.is_superuser %}
+                <!-- Admin Section -->
+                <div class="mt-6 mb-3 px-4">
+                    <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Admin Tools</h3>
+                </div>
+                
+                <a href="{% url 'audit_logs' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-history w-6"></i>
+                    <span class="mx-2">Audit Logs</span>
+                </a>
+                
+                <a href="{% url 'compliance_reports_list' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-clipboard-check w-6"></i>
+                    <span class="mx-2">Compliance Reports</span>
+                </a>
+                
+                <a href="{% url 'user_management' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                    <i class="fas fa-users-cog w-6"></i>
+                    <span class="mx-2">User Management</span>
+                </a>
+                {% endif %}
+                
+                <div class="mt-auto pt-6">
+                    <a href="{% url 'profile' %}" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors duration-200 mb-1">
+                        <i class="fas fa-user-circle w-6"></i>
+                        <span class="mx-2">My Profile</span>
+                    </a>
+                    
+                    <form method="post" action="{% url 'logout' %}" class="mb-0">
+                        {% csrf_token %}
+                        <button type="submit" class="sidebar-item flex items-center px-4 py-3 text-gray-600 hover:bg-red-50 hover:text-red-600 rounded-lg transition-colors duration-200 w-full text-left">
+                            <i class="fas fa-sign-out-alt w-6"></i>
+                            <span class="mx-2">Logout</span>
+                        </button>
+                    </form>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Overlay for mobile -->
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden backdrop-blur-sm" id="sidebar-overlay"></div>
+
+        <main class="flex-1 overflow-x-hidden overflow-y-auto lg:ml-64 relative z-10">
+            <!-- Top Navigation Bar -->
+            <header class="bg-white shadow-soft sticky top-0 z-30 glass-effect">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button id="sidebar-toggle" class="text-gray-600 hover:text-primary-600 focus:outline-none lg:hidden transition-colors duration-200">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h1 class="text-xl lg:text-2xl font-semibold text-gray-800 ml-4">{% block header %}Dashboard{% endblock %}</h1>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <button class="p-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                            <i class="fas fa-bell"></i>
+                        </button>
+                        <div class="relative">
+                            <button class="flex items-center space-x-3 text-gray-600 hover:text-primary-600 focus:outline-none transition-colors duration-200">
+                                <img class="h-10 w-10 rounded-full object-cover border-2 border-primary-100 hover:border-primary-300 transition-colors duration-200" 
+                                     src="https://ui-avatars.com/api/?name=Admin&background=4F46E5&color=fff" alt="Profile">
+                                <span class="hidden lg:inline text-gray-800 font-medium">Admin</span>
+                                <i class="fas fa-chevron-down ml-1 hidden lg:inline text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="glass-card p-6 md:p-10 m-4 md:m-10">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const overlay = document.getElementById('sidebar-overlay');
+        const mainContent = document.querySelector('main');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+            // Prevent scrolling of main content when sidebar is open
+            mainContent.style.overflow = sidebar.classList.contains('-translate-x-full') ? 'auto' : 'hidden';
+        }
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
+
+        // Close sidebar on window resize if open
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024 && !sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                mainContent.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html> 

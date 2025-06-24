@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Email System Diagnosis - VeeKenya{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Email System Diagnosis</h1>
+        
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4">Test Results</h2>
+            
+            <div class="space-y-4">
+                {% for test_name, status, message in results %}
+                <div class="border rounded-lg p-4 {% if status == 'Success' %}bg-green-50 border-green-200{% elif status == 'Failed' %}bg-red-50 border-red-200{% else %}bg-gray-50 border-gray-200{% endif %}">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-medium text-gray-900">{{ test_name }}</h3>
+                        <span class="px-2 py-1 text-sm rounded-full 
+                            {% if status == 'Success' %}bg-green-100 text-green-800
+                            {% elif status == 'Failed' %}bg-red-100 text-red-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ status }}
+                        </span>
+                    </div>
+                    <p class="mt-2 text-sm text-gray-600">{{ message }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4">Troubleshooting Steps</h2>
+            
+            <div class="space-y-4">
+                <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                    <h3 class="font-medium text-gray-900">1. Check Gmail Settings</h3>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Verify that 2-Step Verification is enabled</li>
+                        <li>Generate a new App Password if needed</li>
+                        <li>Check if Gmail is blocking less secure apps</li>
+                    </ul>
+                </div>
+                
+                <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                    <h3 class="font-medium text-gray-900">2. Check Network</h3>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Ensure port 587 is not blocked by firewall</li>
+                        <li>Check if SMTP traffic is allowed</li>
+                        <li>Verify internet connectivity</li>
+                    </ul>
+                </div>
+                
+                <div class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                    <h3 class="font-medium text-gray-900">3. Check Email Configuration</h3>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Verify EMAIL_HOST_USER and EMAIL_HOST_PASSWORD</li>
+                        <li>Check if DEFAULT_FROM_EMAIL is properly formatted</li>
+                        <li>Ensure EMAIL_USE_TLS is set to True</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 flex justify-end">
+            <a href="{% url 'dashboard' %}" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

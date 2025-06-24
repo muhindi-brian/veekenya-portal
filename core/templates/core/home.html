@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeeKenya - Empowering Children Through Education</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background: rgba(0, 0, 0, 0.3);">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'core/images/logo.png' %}" alt="VeeKenya" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#impact">Our Impact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-custom btn-outline-light ms-3 px-4" href="{% url 'login' %}">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section d-flex align-items-center text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold hero-text mb-4">Empowering Children Through Education</h1>
+                    <p class="lead mb-4">Join us in making a difference in the lives of children across Kenya. Every child deserves a chance at education.</p>
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'login' %}" class="btn btn-primary btn-lg btn-custom px-4">Get Started</a>
+                        <a href="#about" class="btn btn-outline-light btn-lg btn-custom px-4">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="floating-card custom-card p-4 text-center">
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h3 class="fw-bold">500+</h3>
+                                    <p>Children Supported</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h3 class="fw-bold">300+</h3>
+                                    <p>Active Sponsors</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h3 class="fw-bold">20+</h3>
+                                    <p>Schools Partnered</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stats-card p-3">
+                                    <h3 class="fw-bold">95%</h3>
+                                    <p>Success Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="{% static 'core/images/about.jpg' %}" alt="About VeeKenya" class="img-fluid rounded-3 shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">About VeeKenya</h2>
+                    <p class="lead mb-4">VeeKenya is dedicated to transforming lives through education. We connect generous sponsors with deserving children to create lasting impact.</p>
+                    <div class="d-flex gap-4 mb-4">
+                        <div>
+                            <i class="fas fa-graduation-cap fa-2x text-primary mb-3"></i>
+                            <h4>Quality Education</h4>
+                            <p>Ensuring access to quality education for every child</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-hands-helping fa-2x text-primary mb-3"></i>
+                            <h4>Mentorship</h4>
+                            <p>Providing guidance and support throughout their journey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center display-5 fw-bold mb-5">Our Impact</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-child fa-3x text-primary mb-3"></i>
+                            <h3 class="card-title h4">Child Development</h3>
+                            <p class="card-text">Supporting holistic development through education and care</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-school fa-3x text-primary mb-3"></i>
+                            <h3 class="card-title h4">School Support</h3>
+                            <p class="card-text">Partnering with schools to improve educational facilities</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-heart fa-3x text-primary mb-3"></i>
+                            <h3 class="card-title h4">Community Growth</h3>
+                            <p class="card-text">Building stronger communities through education</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="display-5 fw-bold mb-4">Get In Touch</h2>
+                    <p class="lead mb-5">Have questions about sponsorship or want to learn more? We'd love to hear from you!</p>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <i class="fas fa-envelope fa-2x text-primary mb-3"></i>
+                            <h4>Email</h4>
+                            <p>contact@veekenya.org</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-phone fa-2x text-primary mb-3"></i>
+                            <h4>Phone</h4>
+                            <p>+254 123 456 789</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary mb-3"></i>
+                            <h4>Location</h4>
+                            <p>Nairobi, Kenya</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>VeeKenya</h5>
+                    <p class="mb-0">Empowering children through education since 2020</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar color change on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.background = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                document.querySelector('.navbar').style.background = 'rgba(0, 0, 0, 0.3)';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

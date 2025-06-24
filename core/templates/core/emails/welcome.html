@@ -1,0 +1,43 @@
+{% extends 'core/emails/base_email.html' %}
+
+{% block title %}Welcome to VeeKenya{% endblock %}
+
+{% block header %}Welcome to VeeKenya{% endblock %}
+
+{% block content %}
+<p>Dear {{ user.first_name }},</p>
+
+<p>Welcome to VeeKenya! We're excited to have you join our community dedicated to making a difference in children's lives.</p>
+
+<p>Your account has been successfully created. Here are your login credentials:</p>
+
+<div style="background-color: #f8f8f8; padding: 20px; margin: 20px 0; border-radius: 5px;">
+    <h3 style="margin-top: 0;">Account Information:</h3>
+    <p><strong>Username:</strong> {{ username }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Password:</strong> {{ password }}</p>
+</div>
+
+<p style="color: #d32f2f; font-weight: bold;">For security reasons, please change your password after your first login.</p>
+
+<p>Here's what you can do next:</p>
+
+<ul>
+    <li>Log in to your account using the credentials above</li>
+    <li>Change your password</li>
+    <li>Complete your profile</li>
+    <li>Browse available children for sponsorship</li>
+    <li>Set up your donation preferences</li>
+</ul>
+
+<a href="{{ login_url }}" class="button">Go to Login</a>
+
+<p>If you have any questions or need assistance, please don't hesitate to contact our support team.</p>
+
+<p>Best regards,<br>The VeeKenya Team</p>
+
+<p style="font-size: 12px; color: #666;">
+    Note: This is an automated message. Please do not reply to this email. 
+    If you need assistance, please contact our support team through the website.
+</p>
+{% endblock %} 

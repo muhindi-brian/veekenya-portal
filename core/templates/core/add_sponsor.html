@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add New Sponsor - VeeKenya{% endblock %}
+
+{% block header %}Add New Sponsor{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="bg-white rounded-lg shadow-sm p-6">
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            {% if messages %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}bg-red-50 border-l-4 border-red-400{% else %}bg-green-50 border-l-4 border-green-400{% endif %} p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle text-red-400{% else %}fa-check-circle text-green-400{% endif %}"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm {% if message.tags == 'error' %}text-red-700{% else %}text-green-700{% endif %}">
+                            {{ message }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <!-- Personal Information -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Personal Information</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Full Name -->
+                    <div>
+                        <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" name="full_name" id="full_name" required
+                               value="{{ form_data.full_name|default:'' }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" name="email" id="email" required
+                               value="{{ form_data.email|default:'' }}"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+
+                    <!-- Phone -->
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                        <input type="tel" name="phone" id="phone" required
+                               value="{{ form_data.phone|default:'' }}"
+                               placeholder="+1234567890"
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                    </div>
+
+                    <!-- Country -->
+                    <div>
+                        <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
+                        <select name="country" id="country" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            <option value="">Select Country</option>
+                            <option value="Kenya" {% if form_data.country == 'Kenya' %}selected{% endif %}>Kenya</option>
+                            <option value="Uganda" {% if form_data.country == 'Uganda' %}selected{% endif %}>Uganda</option>
+                            <option value="Tanzania" {% if form_data.country == 'Tanzania' %}selected{% endif %}>Tanzania</option>
+                            <option value="United States" {% if form_data.country == 'United States' %}selected{% endif %}>United States</option>
+                            <option value="United Kingdom" {% if form_data.country == 'United Kingdom' %}selected{% endif %}>United Kingdom</option>
+                            <option value="Canada" {% if form_data.country == 'Canada' %}selected{% endif %}>Canada</option>
+                            <option value="Australia" {% if form_data.country == 'Australia' %}selected{% endif %}>Australia</option>
+                            <option value="Other" {% if form_data.country == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-medium text-gray-900">Additional Information</h3>
+                
+                <div>
+                    <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                    <textarea name="notes" id="notes" rows="4"
+                              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                              placeholder="Any additional information about the sponsor...">{{ form_data.notes|default:'' }}</textarea>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex justify-end space-x-3 pt-6 border-t">
+                <a href="{% url 'sponsors' %}" class="px-4 py-2 border rounded-md text-gray-700 hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+                    Save Sponsor
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Phone number validation
+    document.getElementById('phone').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/[^\d+]/g, '');
+        if (!value.startsWith('+')) {
+            value = '+' + value;
+        }
+        e.target.value = value;
+    });
+
+    // Email validation
+    document.getElementById('email').addEventListener('input', function(e) {
+        const email = e.target.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            e.target.setCustomValidity('Please enter a valid email address');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
+</script>
+{% endblock %} 

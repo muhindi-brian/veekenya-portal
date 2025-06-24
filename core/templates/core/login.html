@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VeeKenya</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: url('https://veekenya.org/wp-content/uploads/2025/04/education-2-.jpg') center center/cover no-repeat fixed;
+            position: relative;
+        }
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(126,166,199,0.7) 0%, rgba(224,231,255,0.7) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 2rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: cardAppear 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes cardAppear {
+            from { opacity: 0; transform: translateY(40px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .btn-hover-effect {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-hover-effect::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+        .btn-hover-effect:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen flex items-center justify-center">
+    <div class="bg-overlay"></div>
+    <!-- Hamburger Menu -->
+    <div class="absolute top-8 right-8 z-20">
+        <button class="focus:outline-none">
+            <span class="block w-8 h-1 bg-blue-900 mb-1.5 rounded"></span>
+            <span class="block w-8 h-1 bg-blue-900 mb-1.5 rounded"></span>
+            <span class="block w-8 h-1 bg-blue-900 rounded"></span>
+        </button>
+    </div>
+    <!-- Centered Login Card -->
+    <div class="glass-card w-full max-w-md mx-auto p-10 relative z-10 animate-fade-in">
+        <div class="text-center mb-8 floating">
+            <div class="inline-block p-4 rounded-full bg-white/20 backdrop-blur-sm mb-4">
+                <i class="fas fa-graduation-cap text-4xl text-[#2d4c68]"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-[#2d4c68] mb-2">VeeKenya</h1>
+            <p class="text-[#2d4c68]/80">Welcome back! Please login to your account.</p>
+        </div>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            <div>
+                <div class="flex items-center bg-[#2d4c68] rounded-md px-6 py-4 mb-4">
+                    <i class="fas fa-user text-white text-2xl mr-4"></i>
+                    <input type="text" name="username" id="username" required placeholder="Username" class="bg-transparent border-none outline-none text-white text-xl flex-1 placeholder-white" />
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center bg-[#2d4c68] rounded-md px-6 py-4 mb-4">
+                    <i class="fas fa-lock text-white text-2xl mr-4"></i>
+                    <input type="password" name="password" id="password" required placeholder="Password" class="bg-transparent border-none outline-none text-white text-xl flex-1 placeholder-white" />
+                </div>
+            </div>
+            <div class="flex justify-end mb-2">
+                <a href="#" id="forgot-password-link" class="text-[#2d4c68] underline text-base">Forget Password</a>
+            </div>
+            <button type="submit" class="w-full bg-[#7ea6c7] text-white text-xl rounded-md py-4 font-medium mb-2 transition hover:bg-[#5b8bb2] btn-hover-effect">Login</button>
+            <div class="flex items-center mt-2">
+                <i class="fas fa-user text-[#2d4c68] mr-2"></i>
+                <a href="#" class="underline text-[#2d4c68] text-base">Keep Information Login</a>
+            </div>
+        </form>
+    </div>
+    <!-- Search Bar Bottom Right -->
+    <div class="fixed bottom-8 right-8 w-64 flex items-center border-2 border-[#2d4c68] rounded-full px-4 py-2 bg-white shadow-md z-20">
+        <input type="text" placeholder="" class="flex-1 bg-transparent border-none outline-none text-[#2d4c68] text-lg" />
+        <i class="fas fa-search text-[#2d4c68] text-xl"></i>
+    </div>
+    <!-- Forget Password Modal -->
+    <div id="forgot-password-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-sm relative animate-fade-in">
+            <button id="close-forgot-modal" class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl focus:outline-none">&times;</button>
+            <h2 class="text-2xl font-bold text-[#2d4c68] mb-4 text-center">Reset Password</h2>
+            <form method="post" action="/password-reset/" class="space-y-4">
+                {% csrf_token %}
+                <div>
+                    <label for="reset-email" class="block text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="reset-email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2d4c68] focus:border-[#2d4c68]" placeholder="Enter your email">
+                </div>
+                <button type="submit" class="w-full bg-[#2d4c68] text-white rounded-lg py-2 font-medium hover:bg-[#1b2e44] transition">Send Reset Link</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Modal show/hide logic
+        const forgotLink = document.getElementById('forgot-password-link');
+        const forgotModal = document.getElementById('forgot-password-modal');
+        const closeForgot = document.getElementById('close-forgot-modal');
+        if (forgotLink && forgotModal && closeForgot) {
+            forgotLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                forgotModal.classList.remove('hidden');
+            });
+            closeForgot.addEventListener('click', function() {
+                forgotModal.classList.add('hidden');
+            });
+            window.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') forgotModal.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+</html> 

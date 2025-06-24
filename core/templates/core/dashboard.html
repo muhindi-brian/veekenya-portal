@@ -1,0 +1,137 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - VeeKenya{% endblock %}
+
+{% block header %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mx-auto">
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-6 lg:mb-8">
+        <!-- Total Children -->
+        <div class="stats-card bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-primary bg-opacity-10">
+                    <i class="fas fa-child text-xl lg:text-2xl text-primary"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-gray-500 text-sm">Total Children</h3>
+                    <p class="text-xl lg:text-2xl font-semibold text-secondary">{{ total_children }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Sponsors -->
+        <div class="stats-card bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-primary bg-opacity-10">
+                    <i class="fas fa-users text-xl lg:text-2xl text-primary"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-gray-500 text-sm">Total Sponsors</h3>
+                    <p class="text-xl lg:text-2xl font-semibold text-secondary">{{ total_sponsors }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Sponsorships -->
+        <div class="stats-card bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-primary bg-opacity-10">
+                    <i class="fas fa-link text-xl lg:text-2xl text-primary"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-gray-500 text-sm">Active Sponsorships</h3>
+                    <p class="text-xl lg:text-2xl font-semibold text-secondary">{{ active_sponsorships }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Donations -->
+        <div class="stats-card bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-primary bg-opacity-10">
+                    <i class="fas fa-dollar-sign text-xl lg:text-2xl text-primary"></i>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-gray-500 text-sm">Total Donations</h3>
+                    <p class="text-xl lg:text-2xl font-semibold text-secondary">${{ total_donations }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions and Recent Activity -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mb-6 lg:mb-8">
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <h2 class="text-lg lg:text-xl font-semibold text-secondary mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+                <a href="{% url 'add_child' %}" class="btn-secondary flex items-center justify-center p-3 lg:p-4 rounded-lg text-sm lg:text-base">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Add Child
+                </a>
+                <a href="{% url 'add_sponsor' %}" class="btn-secondary flex items-center justify-center p-3 lg:p-4 rounded-lg text-sm lg:text-base">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Add Sponsor
+                </a>
+                <a href="{% url 'add_sponsorship' %}" class="btn-secondary flex items-center justify-center p-3 lg:p-4 rounded-lg text-sm lg:text-base">
+                    <i class="fas fa-link mr-2"></i>
+                    New Sponsorship
+                </a>
+                <a href="{% url 'add_donation' %}" class="btn-secondary flex items-center justify-center p-3 lg:p-4 rounded-lg text-sm lg:text-base">
+                    <i class="fas fa-hand-holding-usd mr-2"></i>
+                    Record Donation
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-lg shadow-sm p-4 lg:p-6">
+            <h2 class="text-lg lg:text-xl font-semibold text-secondary mb-4">Recent Activity</h2>
+            <div class="space-y-3 lg:space-y-4">
+                {% for activity in recent_activities %}
+                <div class="flex items-center p-3 bg-light rounded-lg">
+                    <div class="p-2 rounded-full bg-primary bg-opacity-10">
+                        <i class="fas {{ activity.icon }} text-primary"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-secondary">{{ activity.description }}</p>
+                        <p class="text-xs text-gray-500">{{ activity.timestamp }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500 text-center">No recent activity</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Messages -->
+    <div class="bg-white rounded-lg shadow-sm p-4 lg:p-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+            <h2 class="text-lg lg:text-xl font-semibold text-secondary mb-2 sm:mb-0">Recent Messages</h2>
+            <a href="{% url 'messages' %}" class="text-primary hover:text-secondary text-sm lg:text-base">View All</a>
+        </div>
+        <div class="space-y-3 lg:space-y-4">
+            {% for message in recent_messages %}
+            <div class="flex items-start p-3 lg:p-4 bg-light rounded-lg">
+                <img src="https://ui-avatars.com/api/?name={{ message.sender }}&background=30382F&color=fff" 
+                     alt="{{ message.sender }}" 
+                     class="w-8 h-8 lg:w-10 lg:h-10 rounded-full">
+                <div class="ml-3 lg:ml-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center">
+                        <h3 class="text-sm font-semibold text-secondary">{{ message.sender }}</h3>
+                        <span class="text-xs text-gray-500 mt-1 sm:mt-0 sm:ml-2">{{ message.timestamp }}</span>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-1">{{ message.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center">No recent messages</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %} 
