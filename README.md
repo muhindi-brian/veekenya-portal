@@ -1,4 +1,4 @@
-# VeeKenya
+# VeeKenya Portal
 
 VeeKenya is a Django-based web application. This project includes user management, sponsorships, donations, compliance reporting, and more, with a focus on modularity and maintainability.
 
